@@ -5,15 +5,36 @@ Execute once to create a remote storage the save the terraform state.
 
 ## Install
 
-- `terraform`
+- [terraform](https://www.terraform.io/downloads)
 
-- `azure-cli`
+- [azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 ## Initialize
 
-- `az login`
+### az login
 
-- `terraform init`
+```shell
+$ az login
+A web browser has been opened at https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize. Please continue the login in the web browser. If no web browser is available or if the web browser fails to open, use device code flow with `az login --use-device-code`.
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "********-****-****-****-************",
+    "id": "********-****-****-****-************",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure subscription Name",
+    "state": "Enabled",
+    "tenantId": "********-****-****-****-************",
+    "user": {
+      "name": "user@example.com",
+      "type": "user"
+    }
+  }
+]
+```
+
+### terraform init
 
 ```shell
 $ terraform init
@@ -46,13 +67,13 @@ commands will detect it and remind you to do so if necessary.
 
 ## Execute
 
-- `terraform plan -out terraform.tfplan`
+### Terraform plan
 
 ```shell
 $ terraform plan -out terraform.tfplan
 random_id.storage_account_name: Refreshing state... [id=FYTIAzEA3VI]
-azurerm_resource_group.resource_group: Refreshing state... [id=/subscriptions/23c28aac-2178-4d00-880c-94bd7e8944c3/resourceGroups/rg-terraform]
-azurerm_storage_account.storage_account: Refreshing state... [id=/subscriptions/23c28aac-2178-4d00-880c-94bd7e8944c3/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52]
+azurerm_resource_group.resource_group: Refreshing state... [id=/subscriptions/********-****-****-****-************/resourceGroups/rg-terraform]
+azurerm_storage_account.storage_account: Refreshing state... [id=/subscriptions/********-****-****-****-************/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52]
 
 Note: Objects have changed outside of Terraform
 
@@ -61,7 +82,7 @@ last "terraform apply":
 
   # azurerm_resource_group.resource_group has changed
   ~ resource "azurerm_resource_group" "resource_group" {
-        id       = "/subscriptions/23c28aac-2178-4d00-880c-94bd7e8944c3/resourceGroups/rg-terraform"
+        id       = "/subscriptions/********-****-****-****-************/resourceGroups/rg-terraform"
         name     = "rg-terraform"
       + tags     = {}
         # (1 unchanged attribute hidden)
@@ -82,7 +103,7 @@ Terraform will perform the following actions:
 
   # azurerm_storage_account.storage_account will be updated in-place
   ~ resource "azurerm_storage_account" "storage_account" {
-        id                                = "/subscriptions/23c28aac-2178-4d00-880c-94bd7e8944c3/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52"
+        id                                = "/subscriptions/********-****-****-****-************/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52"
         name                              = "tfstate1584c8033100dd52"
       ~ tags                              = {
           - "environment" = "staging" -> null
@@ -105,12 +126,12 @@ To perform exactly these actions, run the following command to apply:
     terraform apply "terraform.tfplan"
 ```
 
-- `terraform apply terraform.tfplan`
+### Terraform apply
 
 ```shell
 $ terraform apply terraform.tfplan
-azurerm_storage_account.storage_account: Modifying... [id=/subscriptions/23c28aac-2178-4d00-880c-94bd7e8944c3/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52]
-azurerm_storage_account.storage_account: Modifications complete after 3s [id=/subscriptions/23c28aac-2178-4d00-880c-94bd7e8944c3/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52]
+azurerm_storage_account.storage_account: Modifying... [id=/subscriptions/********-****-****-****-************/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52]
+azurerm_storage_account.storage_account: Modifications complete after 3s [id=/subscriptions/********-****-****-****-************/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/tfstate1584c8033100dd52]
 
 Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
 
